@@ -34,13 +34,24 @@ const Table = () => {
   const [highlightedColumns, setHighlightedColumns] = useState({});
 
   const handleSearch = () => {
+    if (searchTerm.trim() === "") {
+      setHighlightedColumns({});
+      return;
+    }
+
+    const regex = new RegExp(searchTerm, "i"); // "i" - флаг для регистронезависимого поиска
+
     const results = columns.reduce((acc, { id, content }) => {
-      acc[id] = content.map((cell) =>
-        cell.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      acc[id] = content.map((cell) => regex.test(cell));
       return acc;
     }, {});
+
     setHighlightedColumns(results);
+  };
+
+  const handleResetSearch = () => {
+    setSearchTerm("");
+    setHighlightedColumns({});
   };
 
   const totalHighlights = Object.values(highlightedColumns)
@@ -53,9 +64,13 @@ const Table = () => {
         type="text"
         placeholder="Введите текст для поиска"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onInput={(e) => {
+          setSearchTerm(e.target.value);
+          handleSearch();
+        }}
       />
       <button onClick={handleSearch}>Искать</button>
+      <button onClick={handleResetSearch}>Сбросить поиск</button>
       <div>
         {totalHighlights > 0 ? (
           <p>Найдено совпадений: {totalHighlights}</p>
@@ -67,7 +82,7 @@ const Table = () => {
         <div className={`${styles.tableRow} ${styles.header}`}>
           {columns.map(({ id, title, content }) => (
             <div key={id} className={styles.tableCell}>
-              <div className={`${styles.tableCell} ${styles.header}`}>
+              <div className={`${styles.headerCell} ${styles.header}`}>
                 {title}
               </div>
               {content.map((cell, index) => (
