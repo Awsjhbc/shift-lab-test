@@ -51,17 +51,37 @@
 }
 
 @media screen and (max-width: 420px) {
+  .tableContainer {
+    gap: 30px;
+  }
+
   .tableRow {
-    display: flex;
     flex-direction: column;
+    gap: 30px;
   }
 
   .tableCell {
-    flex: 1;
+    flex: none;
+    position: relative;
   }
 
   .headerCell {
     display: none;
+  }
+
+  .tableCell::before {
+    content: attr(data-label);
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .tableCell,
+  .headerCell {
+    text-align: center;
+    box-sizing: border-box;
   }
 }
 
