@@ -60,17 +60,22 @@ const Table = () => {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Введите текст для поиска"
-        value={searchTerm}
-        onInput={(e) => {
-          setSearchTerm(e.target.value);
-          handleSearch();
-        }}
-      />
-      <button onClick={handleSearch}>Искать</button>
-      <button onClick={handleResetSearch}>Сбросить поиск</button>
+      <div className={styles.inputContainer}>
+        <input
+          type="text"
+          placeholder="Введите текст для поиска"
+          value={searchTerm}
+          onInput={(e) => {
+            setSearchTerm(e.target.value);
+            handleSearch();
+          }}
+          className={styles.inputRow}
+        />
+        <div>
+          <button onClick={handleSearch}>Искать</button>
+          <button onClick={handleResetSearch}>Сбросить поиск</button>
+        </div>
+      </div>
       <div>
         {totalHighlights > 0 ? (
           <p>Найдено совпадений: {totalHighlights}</p>
