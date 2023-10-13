@@ -1,0 +1,56 @@
+.tableContainer {
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.headerRow,
+.tableRow {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.tableCell {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.headerRow {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1600px) {
+  .tableRow {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .tableRow {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tableCell {
+    flex: 1;
+  }
+
+  .headerRow {
+    display: none;
+  }
+}
+
+.tableCell:hover {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+.highlight {
+  background-color: #ffcccc;
+  color: #ff0000;
+  font-weight: bold;
+}
