@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Table</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="inputContainer">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Введите текст для поиска"
+          class="inputRow"
+        />
+        <button id="searchButton">Искать</button>
+        <button id="resetButton">Сбросить поиск</button>
+      </div>
+      <p id="resultInfo"></p>
+      <div id="tableContainer" class="tableContainer">
+        <div class="tableRow header">
+          <div class="tableCell headerCell">Имя</div>
+          <div class="tableCell headerCell">Возраст</div>
+          <div class="tableCell headerCell">Город</div>
+          <div class="tableCell headerCell">Работа</div>
+          <div class="tableCell headerCell">Хобби</div>
+        </div>
+        <div class="tableRow">
+          <div class="tableCell">Иван</div>
+          <div class="tableCell">25</div>
+          <div class="tableCell">Москва</div>
+          <div class="tableCell">Инженер</div>
+          <div class="tableCell">Фотография</div>
+        </div>
+        <div class="tableRow">
+          <div class="tableCell">Мария</div>
+          <div class="tableCell">30</div>
+          <div class="tableCell">Томск</div>
+          <div class="tableCell">Врач</div>
+          <div class="tableCell">Путешествия</div>
+        </div>
+        <div class="tableRow">
+          <div class="tableCell">Александр</div>
+          <div class="tableCell">22</div>
+          <div class="tableCell">Новосибирск</div>
+          <div class="tableCell">Программист</div>
+          <div class="tableCell">Литература</div>
+        </div>
+        <div class="tableRow">
+          <div class="tableCell">Елена</div>
+          <div class="tableCell">35</div>
+          <div class="tableCell">Самара</div>
+          <div class="tableCell">Учитель</div>
+          <div class="tableCell">Спорт</div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
