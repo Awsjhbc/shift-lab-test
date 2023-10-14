@@ -1,6 +1,21 @@
 :root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
   --highlight-background: #ffcccc;
   --highlight-text: #ff0000;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
 }
 
 .inputContainer {
@@ -31,6 +46,7 @@
 .tableRow {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -40,10 +56,6 @@
   flex: 1;
   padding: 8px;
   border: 1px solid #ccc;
-}
-
-.tableRow {
-  flex-wrap: wrap;
 }
 
 .headerCell {

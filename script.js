@@ -1,90 +1,72 @@
-import "./style.css";
+const searchInput = document.getElementById("searchInput");
+const resultInfo = document.getElementById("resultInfo");
 
-document.addEventListener("DOMContentLoaded", function () {
+const tableRows = document.querySelectorAll(
+  "#tableContainer .tableRow:not(.header)"
+);
+
+function updateTable(highlightedColumns) {
+  tableRows.forEach((row, rowIndex) => {
+    const cells = row.querySelectorAll(".tableCell");
+
+    cells.forEach((cell, cellIndex) => {
+      if (highlightedColumns[rowIndex]?.[cellIndex]) {
+        cell.classList.add("highlight");
+      } else {
+        cell.classList.remove("highlight");
+      }
+    });
+  });
+}
+
+function updateResultInfo(totalHighlights) {
+  if (totalHighlights > 0) {
+    resultInfo.textContent = `Найдено совпадений: ${totalHighlights}`;
+  } else {
+    resultInfo.textContent = "Ничего не найдено";
+  }
+}
+
+function handleSearch() {
   let highlightedColumns = {};
+  const searchValue = searchInput.value.trim();
 
-  function handleSearch() {
-    const searchTerm = document.getElementById("searchInput").value.trim();
-
-    if (searchTerm === "") {
-      highlightedColumns = {};
-      updateTable();
-      updateResultInfo(0);
-      return;
-    }
-
-    const regex = new RegExp(searchTerm, "i");
-
+  if (!searchValue) {
     highlightedColumns = {};
-    const rows = document.querySelectorAll(
-      "#tableContainer .tableRow:not(.header)"
-    );
-
-    rows.forEach((row, rowIndex) => {
-      const cells = row.querySelectorAll(".tableCell");
-      cells.forEach((cell, cellIndex) => {
-        const content = cell.textContent.trim();
-        if (regex.test(content)) {
-          if (!highlightedColumns[rowIndex]) {
-            highlightedColumns[rowIndex] = [];
-          }
-          highlightedColumns[rowIndex][cellIndex] = true;
-        }
-      });
-    });
-
-    const totalHighlights = Object.values(highlightedColumns)
-      .flat()
-      .filter(Boolean).length;
-
-    updateTable();
-    updateResultInfo(totalHighlights);
-  }
-
-  function handleResetSearch() {
-    document.getElementById("searchInput").value = "";
-    highlightedColumns = {};
-    updateTable();
+    updateTable(highlightedColumns);
     updateResultInfo(0);
+    return;
   }
 
-  function updateTable() {
-    const tableContainer = document.getElementById("tableContainer");
-
-    const rows = document.querySelectorAll(
-      "#tableContainer .tableRow:not(.header)"
-    );
-
-    rows.forEach((row, rowIndex) => {
-      const cells = row.querySelectorAll(".tableCell");
-
-      cells.forEach((cell, cellIndex) => {
-        if (highlightedColumns[rowIndex]?.[cellIndex]) {
-          cell.classList.add("highlight");
-        } else {
-          cell.classList.remove("highlight");
+  tableRows.forEach((row, rowIndex) => {
+    const cells = row.querySelectorAll(".tableCell");
+    cells.forEach((cell, cellIndex) => {
+      const content = cell.textContent.trim();
+      if (content.toLowerCase().includes(searchValue.toLowerCase())) {
+        if (!highlightedColumns[rowIndex]) {
+          highlightedColumns[rowIndex] = [];
         }
-      });
+        highlightedColumns[rowIndex][cellIndex] = true;
+      }
     });
-  }
+  });
 
-  function updateResultInfo(totalHighlights) {
-    const resultInfo = document.getElementById("resultInfo");
+  const totalHighlights = Object.values(highlightedColumns)
+    .flat()
+    .filter(Boolean).length;
 
-    if (totalHighlights > 0) {
-      resultInfo.textContent = `Найдено совпадений: ${totalHighlights}`;
-    } else {
-      resultInfo.textContent = "Ничего не найдено";
-    }
-  }
+  updateTable(highlightedColumns);
+  updateResultInfo(totalHighlights);
+}
 
-  document
-    .getElementById("searchInput")
-    .addEventListener("input", handleSearch);
-  document
-    .getElementById("searchButton")
-    .addEventListener("click", handleSearch);
-  document
-    .getElementById("resetButton")
-    .addEventListener("click", handleResetSearch);
-});
+function handleResetSearch() {
+  searchInput.value = "";
+  updateTable({});
+  updateResultInfo(0);
+}
+
+document.getElementById("searchInput").addEventListener("input", handleSearch);
+document.getElementById("searchButton").addEventListener("click", handleSearch);
+document
+  .getElementById("resetButton")
+  .addEventListener("click", handleResetSearch);
