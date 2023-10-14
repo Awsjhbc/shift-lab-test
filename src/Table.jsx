@@ -39,7 +39,7 @@ const Table = () => {
       return;
     }
 
-    const regex = new RegExp(searchTerm, "i"); // "i" - флаг для регистронезависимого поиска
+    const regex = new RegExp(searchTerm, "i");
 
     const results = columns.reduce((acc, { id, content }) => {
       acc[id] = content.map((cell) => regex.test(cell));
@@ -96,6 +96,7 @@ const Table = () => {
                   className={`${styles.tableCell} ${
                     highlightedColumns[id]?.[index] && styles.highlight
                   }`}
+                  data-label={title}
                 >
                   {cell}
                 </div>

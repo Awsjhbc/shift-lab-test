@@ -37,6 +37,7 @@
   flex: 1;
   padding: 8px;
   border: 1px solid #ccc;
+  position: relative;
 }
 
 .tableRow {
@@ -50,11 +51,29 @@
   }
 
   .tableCell {
+    display: flex;
+    flex-direction: column;
     flex: 1;
+    margin-top: 26px;
   }
 
   .headerCell {
     display: none;
+  }
+
+  .headerCell::before,
+  .tableCell::before {
+    content: attr(data-label);
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .headerCell,
+  .tableCell {
+    text-align: center;
   }
 }
 
