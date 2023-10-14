@@ -1,12 +1,9 @@
 import "./App.css";
-import Table from "./Table";
 
-function App() {
-  return (
-    <>
-      <Table />
-    </>
-  );
-}
+import Table from "./components/Table/Table";
+
+const App = () => {
+  return <Table />;
+};
 
 export default App;

@@ -1,0 +1,11 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputRow {
+  display: flex;
+  width: 258px;
+  height: 28px;
+}
